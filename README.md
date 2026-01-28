@@ -7,14 +7,13 @@ Manager for database tokens
 pgcli -U postgres -d postgres -h localhost -W
 ```
 ```
-CREATE ROLE reidi_ec WITH LOGIN NOSUPERUSER CREATEDB NOCREATEROLE
-  INHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD 'r'
+CREATE ROLE radmin WITH LOGIN NOSUPERUSER CREATEDB NOCREATEROLE INHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD 'r'
 ```
 ```
-pgcli -U reidi_ec -d postgres -h localhost -W
+pgcli -U radmin -d postgres -h localhost -W
 ```
 ```
-create database reidi_ec
+create database radmin
 ```
 ## Create .env in root
 ```
