@@ -19,6 +19,7 @@ create database reidi_ec
 ## Create .env in root
 ```
 POSTGRES_URL=postgresql+asyncpg://radmin:r@localhost:5432/radmin
+PRIVATE_KEY=$0123456789qwertyuiopasdfghjklzxcvbnm
 ```
 ## Create python virtual environment
 ```
@@ -49,6 +50,10 @@ ruff format .
 ## Run app
 ```
 uvicorn src.main:app --reload --log-config=log_conf.yaml
+```
+## Run cli application
+```
+python src/cli.py
 ```
 ## Swagger
 ```
