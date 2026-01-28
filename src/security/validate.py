@@ -1,8 +1,11 @@
 import typing
 from fastapi import HTTPException, Request, status, Depends
 from fastapi.security.http import HTTPAuthorizationCredentials, HTTPBearer
-
+from sqlmodel.ext.asyncio.session import AsyncSession
 from src.security.models import UnauthorizedMessage
+from src.config.db import get_session
+from src.jwt.models import Administrator
+from sqlmodel import select
 
 
 get_bearer_token = HTTPBearer(auto_error=False)
@@ -13,22 +16,23 @@ async def check_token(
     auth: typing.Optional[HTTPAuthorizationCredentials] = Depends(
         get_bearer_token
     ),
+    session: AsyncSession = Depends(get_session),
 ) -> str:
     if auth is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            message='Not token provided',
+            detail='Not token provided',
         )
 
     token = auth.credentials
-    subscription = await request.app.mongodb['subscriptions'].find_one(
-        {'token': token, 'status': True, 'role': 'Manager'}
-    )
 
-    if subscription is None:
+    statement = select(Administrator).where(Administrator.token == token)
+    result = await session.exec(statement)
+
+    if result.first() is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            message='Not authorized',
+            detail='Not authorized',
         )
 
     return token
