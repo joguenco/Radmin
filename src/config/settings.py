@@ -8,6 +8,9 @@ class Settings(BaseSettings):
 
     POSTGRES_URL: str
     PRIVATE_KEY: str
+    ADMIN_IDENTIFIER: str
+    ADMIN_NAME: str
+    ADMIN_EMAIL: str
 
     model_config = SettingsConfigDict(env_file='.env', extra='ignore')
 

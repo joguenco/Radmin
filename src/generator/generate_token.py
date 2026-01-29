@@ -11,7 +11,9 @@ def generate_token(
     payload = {
         'iss': 'radmin.resolvedor.dev',
         'iat': current_time,
+        'exp': None,
         'aud': 'resolvedor.dev',
+        'sub': 'bussines@resolvedor.dev',
         'client': identifier,
         'name': name,
         'email': email,

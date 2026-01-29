@@ -19,6 +19,9 @@ create database radmin
 ```
 POSTGRES_URL=postgresql+asyncpg://radmin:r@localhost:5432/radmin
 PRIVATE_KEY=$0123456789qwertyuiopasdfghjklzxcvbnm
+ADMIN_IDENTIFIER=1234567890
+ADMIN_NAME=Jorge Luis
+ADMIN_EMAIL=jorgeluis@resolvedor.dev
 ```
 ## Create python virtual environment
 ```

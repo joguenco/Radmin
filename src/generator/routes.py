@@ -9,7 +9,7 @@ from fastapi import APIRouter, Request, status, Body, Depends
 from src.config.settings import settings
 
 router = APIRouter()
-private_key = settings.PRIVATE_KEY
+PRIVATE_KEY = settings.PRIVATE_KEY
 
 
 @router.post(
@@ -30,7 +30,7 @@ async def create_subscription(
         data['name'],
         data['email'],
         data['role'],
-        private_key,
+        PRIVATE_KEY,
     )
 
     return SubscriptionOut(
