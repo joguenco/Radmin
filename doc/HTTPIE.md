@@ -1,0 +1,11 @@
+# HTTPIE
+
+## Ping
+```
+http localhost:8000/ping
+```
+
+## Version
+```
+http localhost:8000/version Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJyYWRtaW4ucmVzb2x2ZWRvci5kZXYiLCJpYXQiOjE3Njk2NTQwMDUsImV4cCI6MTc4NTIwNjAwNSwiYXVkIjoicmVzb2x2ZWRvci5kZXYiLCJzdWIiOiJidXNzaW5lc0ByZXNvbHZlZG9yLmRldiIsIm5hbWUiOiJKb3JnZSBMdWlzIiwiZW1haWwiOiJqb3JnZWx1aXNAcmVzb2x2ZWRvci5kZXYiLCJyb2xlIjpbIk1hbmFnZXIiXSwic2VydmljZSI6IlJhZG1pbiJ9.wOMmWVUVC060l1xrSFh3SEG_JEH6pW-w6g9wnyndEqg'
+```

@@ -19,9 +19,11 @@ async def check_token(
     session: AsyncSession = Depends(get_session),
 ) -> str:
     if auth is None:
+        detail = 'No token provided'
+        await message_unauthorized(request, session, detail)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='Not token provided',
+            detail=detail,
         )
 
     token = auth.credentials
@@ -35,9 +37,21 @@ async def check_token(
     result = await session.exec(statement)
 
     if result.first() is None:
+        detail = 'Not authorized'
+        await message_unauthorized(request, session, detail)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='Not authorized',
+            detail=detail,
         )
 
     return token
+
+
+async def message_unauthorized(
+    request: Request,
+    session: AsyncSession = Depends(get_session),
+    detail: str = 'Not authorized',
+) -> None:
+    message = request.url.path + ' - ' + request.url.hostname
+    session.add(UnauthorizedMessage(description=f'{message} - {detail}'))
+    await session.commit()

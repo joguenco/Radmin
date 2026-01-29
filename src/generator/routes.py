@@ -13,7 +13,7 @@ private_key = settings.PRIVATE_KEY
 
 
 @router.post(
-    '/subscriptions',
+    '/generator',
     response_description='Create a new subscription',
     status_code=status.HTTP_201_CREATED,
     response_model=SubscriptionOut,

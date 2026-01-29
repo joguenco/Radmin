@@ -1,3 +1,4 @@
+from sqlmodel import select
 import jwt
 import click
 from datetime import timedelta, datetime, timezone
@@ -7,7 +8,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from generator.models import Administrator
+from generator.models import Administrator, Role
 
 
 async_engine = create_async_engine(url=settings.POSTGRES_URL, echo=True)
@@ -48,17 +49,25 @@ async def main_async() -> str:
     session_gen = get_session()
     session = await session_gen.__anext__()
 
-    administrator_data = Administrator(
-        identifier=client_id,
-        name=client_name,
-        email=client_email,
-        token=jwt_token,
-    )
+    statement = select(Role).where(Role.name == 'Manager')
 
-    session.add(administrator_data)
-    await session.commit()
+    result = await session.exec(statement)
+    result = result.first()
+    if result:
+        administrator_data = Administrator(
+            identifier=client_id,
+            name=client_name,
+            email=client_email,
+            token=jwt_token,
+            roles=[result],
+        )
 
-    return jwt_token
+        session.add(administrator_data)
+        await session.commit()
+
+        return jwt_token
+
+    raise Exception('Role Manager not found in database')
 
 
 asyncio.run(main_async())

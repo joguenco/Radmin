@@ -12,13 +12,17 @@ async def init_db():
     async with async_engine.begin() as conn:
         from src.security.models import UnauthorizedMessage  # noqa: F401
         from src.generator.models import (
-            AdministratorRoleLink,
-            Role,
-            Administrator,
-        )  # noqa: F401
+            AdministratorRoleLink,  # noqa: F401
+            Role,  # noqa: F401
+            Administrator,  # noqa: F401
+        )
 
         # await conn.run_sync(SQLModel.metadata.drop_all)
         await conn.run_sync(SQLModel.metadata.create_all)
+
+    from src.generator.seeder import seed_roles
+
+    await seed_roles()
 
 
 async def get_session() -> AsyncSession:  # type: ignore
