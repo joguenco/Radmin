@@ -11,7 +11,11 @@ async def init_db():
     """Create the database tables"""
     async with async_engine.begin() as conn:
         from src.security.models import UnauthorizedMessage  # noqa: F401
-        from src.jwt.models import AdministratorRoleLink, Role, Administrator  # noqa: F401
+        from src.generator.models import (
+            AdministratorRoleLink,
+            Role,
+            Administrator,
+        )  # noqa: F401
 
         # await conn.run_sync(SQLModel.metadata.drop_all)
         await conn.run_sync(SQLModel.metadata.create_all)

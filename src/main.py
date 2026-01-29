@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from src.config.db import init_db
 from src.ping.routes import router as ping_router
 from src.version.routes import router as version_router
-from src.jwt.routes import router as jwt_router
+from src.generator.routes import router as jwt_router
 import logging
 
 logger = logging.getLogger(__name__)

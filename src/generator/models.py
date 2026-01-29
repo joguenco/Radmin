@@ -11,7 +11,6 @@ class AdministratorRoleLink(SQLModel, table=True):
     administrator_id: int | None = Field(
         default=None, foreign_key='administrators.id', primary_key=True
     )
-    created_at: datetime.datetime = Field(default=datetime.datetime.now)
 
 
 class Role(SQLModel, table=True):
@@ -19,9 +18,11 @@ class Role(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     status: Optional[bool] = True
-    created_at: datetime.datetime = Field(default=datetime.datetime.now)
+    created_at: datetime.datetime = Field(
+        default_factory=datetime.datetime.utcnow,
+    )
     updated_at: datetime.datetime = Field(
-        default=datetime.datetime.now,
+        default_factory=datetime.datetime.utcnow,
         sa_column_kwargs={'onupdate': datetime.datetime.now},
     )
 
@@ -33,16 +34,17 @@ class Role(SQLModel, table=True):
 class Administrator(SQLModel, table=True):
     __tablename__ = 'administrators'
     id: int | None = Field(default=None, primary_key=True)
-    identifier: str = Field(index=True, unique=True)
+    identifier: str = Field(index=True)
     name: str = Field(index=True)
-    email: str = Field(index=True, unique=True)
+    email: str = Field(index=True)
     token: str
     status: Optional[bool] = True
-    expiration_date: datetime.datetime = Field()
-    created_at: datetime.datetime = Field(default=datetime.datetime.now)
+    created_at: datetime.datetime = Field(
+        default_factory=datetime.datetime.utcnow,
+    )
     updated_at: datetime.datetime = Field(
-        default=datetime.datetime.now,
-        sa_column_kwargs={'onupdate': datetime.datetime.now},
+        default_factory=datetime.datetime.utcnow,
+        sa_column_kwargs={'onupdate': datetime.datetime.utcnow},
     )
 
     roles: list[Role] = Relationship(

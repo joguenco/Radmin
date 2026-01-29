@@ -4,7 +4,7 @@ from fastapi.security.http import HTTPAuthorizationCredentials, HTTPBearer
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.security.models import UnauthorizedMessage
 from src.config.db import get_session
-from src.jwt.models import Administrator
+from src.generator.models import Administrator
 from sqlmodel import select
 
 
@@ -26,7 +26,12 @@ async def check_token(
 
     token = auth.credentials
 
-    statement = select(Administrator).where(Administrator.token == token)
+    statement = (
+        select(Administrator)
+        .where(Administrator.token == token)
+        .where(Administrator.status)
+        .order_by(Administrator.created_at.desc())
+    )
     result = await session.exec(statement)
 
     if result.first() is None:

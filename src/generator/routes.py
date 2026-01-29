@@ -1,10 +1,10 @@
 from src.security.validate import check_token
-from src.jwt.dto.subscription import (
+from src.generator.dto.subscription import (
     SubscriptionOut,
     SubscriptionIn,
 )
 from fastapi.encoders import jsonable_encoder
-from src.jwt.generate_token import generate_token
+from src.generator.generate_token import generate_token
 from fastapi import APIRouter, Request, status, Body, Depends
 from src.config.settings import settings
 
