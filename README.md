@@ -18,7 +18,7 @@ create database radmin
 ## Create .env in root
 ```
 POSTGRES_URL=postgresql+asyncpg://radmin:r@localhost:5432/radmin
-PRIVATE_KEY=$0123456789qwertyuiopasdfghjklzxcvbnm
+PRIVATE_KEY=0123456789qwertyuiopasdfghjklzxcvbnm
 ADMIN_IDENTIFIER=1234567890
 ADMIN_NAME=Jorge Luis
 ADMIN_EMAIL=jorgeluis@resolvedor.dev
@@ -73,14 +73,23 @@ or
 ```
 pytest -s tests/test.py
 ```
-## Docker
+## PostgreSql & Docker
+To connect from docker to postgres, add in postgresql.conf
 ```
-docker-compose up --build -d
+listen_addresses = 'localhost, 172.17.0.1'
+```
+and add in pg_hba.conf
+```
+host      all      radmin      172.17.0.1/16      scram-sha-256
+```
+## Docker compose
+```
+docker-compose up -d
 ```
 ```
 docker-compose down
 ```
 ## Rebuild
-´´´
+```
 docker-compose up --build -d
-´´´
+```

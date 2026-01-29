@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    image: radmin_fastapi
+    container_name: radmin
+    network_mode: bridge
+    ports:
+      - 8000:8000
+    environment:      
+      POSTGRES_URL: 'postgresql+asyncpg://radmin:r@host.docker.internal:5432/radmin'
+      PRIVATE_KEY: '0123456789qwertyuiopasdfghjklzxcvbnm'
+      ADMIN_IDENTIFIER: '1234567890'
+      ADMIN_NAME: 'Jorge Luis'
+      ADMIN_EMAIL: 'jorgeluis@resolvedor.dev'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'

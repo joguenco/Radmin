@@ -17,7 +17,7 @@ async def init_db():
             Administrator,  # noqa: F401
         )
 
-        await conn.run_sync(SQLModel.metadata.drop_all)
+        # await conn.run_sync(SQLModel.metadata.drop_all)
         await conn.run_sync(SQLModel.metadata.create_all)
 
     from src.generator.seeder import seed_roles, seed_administrators
