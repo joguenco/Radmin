@@ -28,6 +28,14 @@ async def check_token(
 
     token = auth.credentials
 
+    if len(token) < 180:
+        detail = 'Not authorized'
+        await message_unauthorized(request, session, detail)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=detail,
+        )
+
     statement = (
         select(Administrator)
         .where(Administrator.token == token)

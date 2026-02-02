@@ -8,11 +8,11 @@ class SubscriptionOut(BaseModel):
     email: str
     token: Optional[str] = None
     status: Optional[bool] = True
-    role: str
+    role: list[str]
 
 
 class SubscriptionIn(BaseModel):
     identifier: str
     name: str
     email: str
-    role: Optional[str] = 'demo'
+    role: list[str] = ['demo']

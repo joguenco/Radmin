@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 
 def generate_token(
-    identifier: str, name: str, email, role: str, private_key: str
+    identifier: str, name: str, email, role: list[str], private_key: str
 ) -> Tuple[str, datetime]:
     current_time = datetime.now(timezone.utc)
 
