@@ -1,4 +1,6 @@
 from typing import Optional
+from datetime import date
+
 from pydantic import BaseModel
 
 
@@ -15,4 +17,5 @@ class SubscriptionIn(BaseModel):
     identifier: str
     name: str
     email: str
+    expitation_date: date
     role: list[str] = ['demo']

@@ -31,6 +31,7 @@ async def create_subscription(
         data['email'],
         data['role'],
         PRIVATE_KEY,
+        data['expitation_date'],
     )
 
     return SubscriptionOut(
