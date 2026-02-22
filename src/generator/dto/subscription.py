@@ -19,3 +19,6 @@ class SubscriptionIn(BaseModel):
     email: str
     expitation_date: date
     role: list[str] = ['demo']
+    private_key: Optional[str] = None
+    issuer: str
+    service: str

@@ -10,13 +10,15 @@ def generate_token(
     role: list[str],
     private_key: str,
     expiration_date: str,
+    issuer: str = 'radmin.resolvedor.dev',
+    service: str = 'Radmin',
 ) -> Tuple[str, datetime]:
     current_time = datetime.now(timezone.utc)
     date_object = datetime.strptime(expiration_date, '%Y-%m-%d')
     integer_date = date_object.timestamp()
 
     payload = {
-        'iss': 'radmin.resolvedor.dev',
+        'iss': issuer,
         'iat': current_time,
         'exp': integer_date,
         'aud': 'resolvedor.dev',
@@ -25,7 +27,7 @@ def generate_token(
         'name': name,
         'email': email,
         'role': role,
-        'service': 'Radmin',
+        'service': service,
     }
 
     jwt_token = jwt.encode(payload, private_key, algorithm='HS256')

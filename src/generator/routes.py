@@ -25,13 +25,18 @@ async def create_subscription(
 ):
     data = jsonable_encoder(data)
 
+    if data['private_key'] is None:
+        data['private_key'] = PRIVATE_KEY
+
     client_token = generate_token(
         data['identifier'],
         data['name'],
         data['email'],
         data['role'],
-        PRIVATE_KEY,
+        data['private_key'],
         data['expitation_date'],
+        data['issuer'],
+        data['service'],
     )
 
     return SubscriptionOut(
