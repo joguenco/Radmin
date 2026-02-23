@@ -28,8 +28,13 @@ ADMIN_EMAIL=jorgeluis@resolvedor.dev
 python3.14 -m venv venv
 ```
 ## Activate python virtual environment
+- bash, zsh
 ```
 . venv/bin/activate
+```
+- fish
+```
+. venv/bin/activate.fish
 ```
 ## Update pip and tools
 ```
