@@ -1,10 +1,9 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
 
 from src.config.db import init_db
+from src.index.routes import router as index_router
 from src.ping.routes import router as ping_router
 from src.version.routes import router as version_router
 from src.generator.routes import router as jwt_router
@@ -25,13 +24,8 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.mount('/static', StaticFiles(directory='src/static'), name='static')
-templates = Jinja2Templates(directory='src/templates')
 
+app.include_router(index_router)
 app.include_router(ping_router)
 app.include_router(version_router)
 app.include_router(jwt_router)
-
-
-@app.get('/', response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse(request=request, name='index.html')

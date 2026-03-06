@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Space Mono';
+    src: url('/static/font/SpaceMono-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Space Mono Italic';
+    src: url('/static/font/SpaceMono-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Space Mono Bold';
+    src: url('/static/font/SpaceMono-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+body {
+    font-family: 'Space Mono';
+    /* font-family: 'Space Mono Italic'; */
+    /* font-family: 'Space Mono Bold'; */
+}
