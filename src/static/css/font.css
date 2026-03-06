@@ -19,5 +19,7 @@
 body {
     font-family: 'Space Mono';
     /* font-family: 'Space Mono Italic'; */
-    /* font-family: 'Space Mono Bold'; */
+}
+h1 {
+    font-family: 'Space Mono Bold';
 }
